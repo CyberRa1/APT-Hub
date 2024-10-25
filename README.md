@@ -10,4 +10,5 @@ PS: This script requires Python 3 and mandates an API key from Malpedia and otx.
 
 # Usage
 
-apt_hub.py apt28 (any apt name)
+apt_hub.py [apt name]
+- apt_hub.py APT28
