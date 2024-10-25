@@ -13,3 +13,6 @@ PS: This script requires Python 3 and mandates an API key from Malpedia and otx.
 apt_hub.py -s [apt name]
 
 ![alt text](https://raw.githubusercontent.com/CyberRa1/APT-Hub/refs/heads/main/Images/APT-hub.png)
+
+# Video
+![alt text](https://youtu.be/vx9hee0NnqI)
