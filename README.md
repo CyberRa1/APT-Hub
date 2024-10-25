@@ -10,23 +10,6 @@ PS: This script requires Python 3 and mandates an API key from Malpedia and otx.
 
 # Usage
 
-apt_hub.py -s [apt name]
+[apt_hub.py -s [apt name]
 
-   _____ _____________________ .__         ___.    
-  /  _  \______   \__    ___/  |  |__  __ _\_ |__  
- /  /_\  \|     ___/ |    |    |  |  \|  |  \ __ \ 
-/    |    \    |     |    |    |   Y  \  |  / \_\ \
-\____|__  /____|     |____|    |___|  /____/|___  /
-        \/                          \/          \/ 
-
-																[*] Threat Actor Lookup [Profile/MITRE TTP's/IOC's (Current Year)]
-	                              [*] Author: Shilpesh Trivedi 
-
-	                              [!] NOTE: THIS SCRIPT TAKES TIME TO COLLECT ALL INFO ABOUT APT PLZ BE PATIENT :) 
-
-usage: apt_hub.py [-h] -s SEARCH
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -s SEARCH, --search SEARCH
-                        required APT name for search
+![alt text](https://github.com/CyberRa1/APT-Hub/blob/main/Images/APT-hub.png?raw=true)
