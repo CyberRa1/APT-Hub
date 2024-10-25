@@ -5,3 +5,5 @@ APT hub, It help's research to updated on the latest APT activities. It collects
 - IOCs of current year (otx.alienvault)
 - Publish blogs on APT
 - MITRE TTPs (ATTACK MITRE)
+
+PS: This script mandates an API key from Malpedia and otx.alienvault which is free to get.
