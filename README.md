@@ -6,7 +6,10 @@ APT hub, It help's research to collect information and data on the latest APT ac
 - Publish blogs on APT
 - MITRE TTPs (ATTACK MITRE)
 
-PS: This script requires Python 3 and mandates an API key from Malpedia and otx.alienvault, both of which are free to obtain.
+PS: 
+- This script requires Python 3 and mandates an API key from Malpedia and otx.alienvault, both of which are free to obtain.
+- If you not able to unzip YARA or sample use 7zip or unzip command line.
+
 
 # Usage
 
