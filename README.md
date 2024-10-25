@@ -19,7 +19,7 @@ apt_hub.py -s [apt name]
 \____|__  /____|     |____|    |___|  /____/|___  /
         \/                          \/          \/ 
 
-	                              [*] Threat Actor Lookup [Profile/MITRE TTP's/IOC's (Current Year)]
+																[*] Threat Actor Lookup [Profile/MITRE TTP's/IOC's (Current Year)]
 	                              [*] Author: Shilpesh Trivedi 
 
 	                              [!] NOTE: THIS SCRIPT TAKES TIME TO COLLECT ALL INFO ABOUT APT PLZ BE PATIENT :) 
