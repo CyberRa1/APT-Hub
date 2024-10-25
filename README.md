@@ -14,5 +14,5 @@ apt_hub.py -s [apt name]
 
 ![alt text](https://raw.githubusercontent.com/CyberRa1/APT-Hub/refs/heads/main/Images/APT-hub.png)
 
-# Video
+# Video (Fast Forwarded)
 [![Watch the video](https://img.youtube.com/vi/vx9hee0NnqI/0.jpg)](https://www.youtube.com/watch?v=vx9hee0NnqI)
