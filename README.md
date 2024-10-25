@@ -1,5 +1,5 @@
 # APT-Hub
-APT hub, It help's research to updated on the latest APT activities. It collects following data on give APT name
+APT hub, It help's research to collect information and data on the latest APT activities. It collects following data on give APT name
 
 - APT profiles (Malpedia, MITRE)
 - IOCs of current year (otx.alienvault)
