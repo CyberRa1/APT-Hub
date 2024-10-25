@@ -12,7 +12,7 @@ PS: This script requires Python 3 and mandates an API key from Malpedia and otx.
 
 apt_hub.py -s [apt name]
 
-![alt text](https://cdn.pixabay.com/photo/2020/04/25/09/52/onepiece-5090120_1280.jpg)
+![alt text](https://ibb.co/5G2xpM6)
 
 # Video (Fast Forwarded)
 [![Watch the video](https://img.youtube.com/vi/vx9hee0NnqI/0.jpg)](https://www.youtube.com/watch?v=vx9hee0NnqI)
