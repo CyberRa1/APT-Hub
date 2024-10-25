@@ -30,51 +30,39 @@ class apt_hub(object):
                 sample = '/api/list/samples/'
                 sample_dowload = '/api/get/sample/'
                 yara = '/api/get/yara/'
-
                 yara_path = path+'yara'
                 sample_path = path+'sample'
-
                 header = {'Authorization' : 'apitoken '+self.key}
                 data = requests.get(self.base+apt_list,headers=header)
                 apt_list_json_data = json.loads(data.text)
-
                 count = 0
 
                 if TAName.lower() in apt_list_json_data:
-
                         apt_data = requests.get(self.base+url+TAName,headers=header)
                         apt_json_data = json.loads(apt_data.text)
              
                 if TAName.lower() not in apt_list_json_data:
-
+                        
                         for apt_name in apt_list_json_data:
-
                                 count +=1
-
+                                
                                 if count % 60 == 0:
                                         time.sleep(20)
-
                                 apt_data = requests.get(self.base+url+apt_name,headers=header)
                                 apt_json_data = json.loads(apt_data.text)
 
                                 if 'meta' in apt_json_data:
-
                                         if 'synonyms' in apt_json_data['meta']:
-
                                                 aka = apt_json_data['meta']['synonyms']
-
                                                 if (TAName in aka) or (TAName.lower() in aka) or (TAName.upper() in aka) or (TAName.title() in aka):
-
                                                         TAName = apt_name
                                                         break
 
                 apt_data = requests.get(self.base+url+TAName,headers=header)
                 apt_json_data = json.loads(apt_data.text)
-
                 file = path+TAName+'_malpedia_profile.json'
 
                 with open(file,'w') as f:
-
                         json.dump(apt_json_data, f)
 
                 print("\n[*] APT details from malpedia written on:'{}'".format(file))
@@ -87,15 +75,11 @@ class apt_hub(object):
                         print ("\n[*] Colleting malware samples & YARA associated with '{}' from malpedia".format(TAName))
 
                         for families in apt_json_data['families']:
-
                                 families_data = requests.get(self.base+sample+families,headers=header)
-
                                 json_sha256_data = json.loads(families_data.text)
 
                                 for sha256 in json_sha256_data:
-
                                         sample_sha256 = sha256['sha256']
-
                                         dwnld_sample = requests.get(self.base+sample_dowload+sample_sha256+'/zip',headers=header)
 
                                         if dwnld_sample.status_code == 200:
@@ -105,19 +89,14 @@ class apt_hub(object):
                                                 else:
                                                         open(sample_path+'/'+sample_sha256+'({}).zip'.format(families), "wb").write(base64.b64decode(json_dwnld_sample['zipped']))
                                         time.sleep(1)
-
                                 yara_req = requests.get(self.base+yara+families+'/zip',headers=header)
 
                                 if yara_req.content != b'None':
-
-                                        print (yara_req.content)
-
                                         if sys.platform == 'win32':
-
                                                 open(yara_path+'\\'+'{}_yara.zip'.format(families), "wb").write(yara_req.content)
                                         else:
                                                 open(yara_path+'/'+'{}_yara.zip'.format(families), "wb").write(yara_req.content)
-
+                                                
                         print("\n\t[-] All malware samples associated '{}' dowloaded at '{}', PASSWORD is 'infected'".format(TAName,sample_path))
                         print("\n\t[-] All YARA associated '{}' dowloaded at '{}'".format(TAName,yara_path))
                 else:
@@ -131,15 +110,12 @@ class apt_hub(object):
                 year = today.year
                 fina_pulses_id = []
                 from_to_date = []
-
                 indicators = path+'indicators'
-
                 os.makedirs(indicators)
 
                 print ("[*] Colleting indicators associated with '{}'".format(TAName))
 
                 for i in range(1,30):
-
                         params = {
                         'sort': 'created',
                         'q': TAName+' '+str(year),
@@ -150,7 +126,6 @@ class apt_hub(object):
                         response = requests.get('https://otx.alienvault.com/api/v1/search/pulses', headers=self.otx_headers, params=params)
                         result = response.json()
                         result_data = result['results']
-
                         final_len =len(result_data)+1
 
                         if len(result_data) == 0:
@@ -168,9 +143,7 @@ class apt_hub(object):
                                         fina_pulses_id.append(pulses_id)
 
                 if len(fina_pulses_id) != 0:
-
                         print ('\t[+] Indicator found:\n')
-
                         indicators_path = indicators+'/'
 
                         if sys.platform == 'win32':
@@ -181,9 +154,7 @@ class apt_hub(object):
                         all_in_one.write('Date,Title,Type,Indicator\n')
 
                         for pulses_id in fina_pulses_id:
-
                                 file = indicators_path+pulses_id+'_indicators.json'
-
                                 response = requests.get('https://otx.alienvault.com/api/v1/pulses/{}'.format(pulses_id), headers=self.otx_headers,timeout=30)
                                 result = response.json()
 
@@ -195,13 +166,10 @@ class apt_hub(object):
                                                         ind_type = ioc['type'].replace('FileHash-','')
                                                         indicator = ioc['indicator']
                                                         from_to_date.append(date)
-
                                                         all_in_one.write(date+','+result['name']+','+ind_type+','+indicator+'\n')
-
+                                                        
                                                 json.dump(result, f)
-
                                         print ("\t\t[-] Indicators written:'{}'".format(file))
-
 
                         from_to_date = sorted(from_to_date, reverse=True)
                         print ("\n\t[!] All indicators from '{}' to '{}' written at:'{}'\n".format(from_to_date[-1],from_to_date[0],all_in_one_csv))
@@ -211,27 +179,21 @@ class apt_hub(object):
         def get_apt_mitre_profile_ttp(self,TAName,path):
 
                 TAName = apt_hub().get_apt_details_malpedia(TAName,path)
-
                 response = requests.get(self.mitre)
                 result = response.json()
                 mitre_ids = []
-
                 get_ta = open(path+TAName+'_malpedia_profile.json').read()
-
                 get_ta_json = json.loads(get_ta)
 
                 if 'meta' in get_ta_json:
-
                         ta_ids = get_ta_json['meta']['synonyms']
-
+                        
                         for ta_id in ta_ids:
                                 if ta_id.startswith('G0'):
                                         mitre_ids.append(ta_id)
 
                         if len(mitre_ids) != 0:
-
                                 mitre_object = result['objects']
-
                                 mitre_profile = path+TAName+'_mitre_profile.json'
                                 mitre_ttps = path+TAName+'_mitre_ttps.json'
 
@@ -246,7 +208,6 @@ class apt_hub(object):
                                 print("\n[*] APT profile from ATTACK MITRE written on:'{}'".format(mitre_profile))
 
                                 for ta_mitre_id in mitre_ids:
-
                                         response = requests.get("https://attack.mitre.org/groups/{}/{}-enterprise-layer.json".format(ta_mitre_id,ta_mitre_id))
                                         result = response.json()
 
@@ -278,7 +239,6 @@ if __name__ == '__main__':
         args = parser.parse_args()
 
         if os.path.isdir(args.search) == True:
-
                 rmtree(args.search)
                 os.makedirs(args.search)
         else:
@@ -294,6 +254,4 @@ if __name__ == '__main__':
                 apt_hub().get_apt_details_otx(args.search,path)
 
         except KeyboardInterrupt:
-
                 print("\n\t [!] You have cancelled the '{}' search\n".format(args.search))
-
