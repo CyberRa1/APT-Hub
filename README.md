@@ -1,2 +1,7 @@
 # APT-Hub
-APT hub," will help us updated on the latest APT activities. It collects data on APT profiles, IOCs(1 yr), and blogs on searched APT.
+APT hub, It help's research to updated on the latest APT activities. It collects following data on give APT name
+
+- APT profiles (Malpedia, MITRE)
+- IOCs of current year (otx.alienvault)
+- Publish blogs on APT
+- MITRE TTPs (ATTACK MITRE)
