@@ -184,6 +184,8 @@ class apt_hub(object):
                 mitre_ids = []
                 get_ta = open(path+TAName+'_malpedia_profile.json').read()
                 get_ta_json = json.loads(get_ta)
+                mitre_profile = path+TAName+'_mitre_profile.json'
+                mitre_ttps = path+TAName+'_mitre_ttps.json'
 
                 if 'meta' in get_ta_json:
                         ta_ids = get_ta_json['meta']['synonyms']
@@ -194,8 +196,6 @@ class apt_hub(object):
 
                         if len(mitre_ids) != 0:
                                 mitre_object = result['objects']
-                                mitre_profile = path+TAName+'_mitre_profile.json'
-                                mitre_ttps = path+TAName+'_mitre_ttps.json'
 
                                 for mitre_data in mitre_object:
                                         if mitre_data['type']=='intrusion-set':
@@ -215,6 +215,24 @@ class apt_hub(object):
                                                 json.dump(result, f)
 
                                 print("\n[*] APT's TTPs from ATTACK MITRE written on:'{}'\n".format(mitre_ttps))
+                        else:
+                                mitre_object = result['objects']
+                                for mitre_data in mitre_object:
+                                        if mitre_data['type']=='intrusion-set':
+                                                if TAName.lower() == mitre_data['name'].lower():
+                                                        with open(mitre_profile,'a') as f:
+                                                                json.dump(mitre_data, f)
+
+                                                        for Group_ID in mitre_data['external_references']:
+                                                                if 'external_id' in Group_ID:
+                                                                        Group_ID = Group_ID['external_id']
+                                                                        response = requests.get("https://attack.mitre.org/groups/{}/{}-enterprise-layer.json".format(Group_ID,Group_ID))
+                                                                        result = response.json()
+                                                                        with open(mitre_ttps,'a') as f:
+                                                                                json.dump(result, f)
+
+                                                        print("\n[*] APT profile from ATTACK MITRE written on:'{}'".format(mitre_profile))
+                                                        print("\n[*] APT's TTPs from ATTACK MITRE written on:'{}'\n".format(mitre_ttps))
                 else:
                         print("[!] No information about '{}' on ATTACK MITRE".format(TAName))
 
